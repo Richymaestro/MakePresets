@@ -2,7 +2,7 @@ import time
 from dataclasses import dataclass
 from dataclasses_json import dataclass_json
 
-from roless.roles_v1 import ScopeRevokeFunction
+from roless.roles_v1 import ScopeAllowFunction
 
 @dataclass_json
 @dataclass
@@ -34,8 +34,7 @@ class Root:
 CHAINID = 100
 META = Meta()
 TO = "0xB6CeDb9603e7992A5d42ea2246B3ba0a21342503"
-DATA = [ScopeRevokeFunction(1,"0x02E7e2dd3BA409148A49D5cc9a9034D2f884F245","0x095ea7b3").data,
-        ScopeRevokeFunction(1,"0x02E7e2dd3BA409148A49D5cc9a9034D2f884F245","0x095ea7b3").data
+DATA = [ScopeAllowFunction(1,"0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84","0xa1903eab",0).data
         ]
 TRANSACTIONS = Transaction(TO,DATA).create_transactions()
 

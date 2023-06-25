@@ -1,7 +1,7 @@
 from roless.base import Method
 
 class ScopeRevokeFunction(Method):
-    """what does it do :P"""
+    """Disallows a specific function signature on a scoped target."""
     name = "scopeRevokeFunction"
     in_signature = [("role", "uint16"), ("target_address", "address"), ("function_sig", "bytes4")]
 
@@ -10,7 +10,19 @@ class ScopeRevokeFunction(Method):
         self.target_address = target_address
         self.function_sig = function_sig
 
+class ScopeAllowFunction(Method):
+    """Allows a specific function signature on a scoped target."""
+    name = "scopeAllowFunction"
+    in_signature = [("role", "uint16"), ("target_address", "address"), ("function_sig", "bytes4"), ("options", "uint8")]
+
+    def __init__(self, role: int, target_address: str, function_sig: str, options: int):
+        self.role = role
+        self.target_address = target_address
+        self.function_sig = function_sig   
+        self.options = options 
+
 class ScopeFunction(Method):
+    """Sets scoping rules for a function, on a scoped address."""
     name = "scopeFunction"
     in_signature = [("role","uint16"), ("target_address", "address"),
                     ("function_sig", "address"), ("is_param_scoped", "bool"),
@@ -30,7 +42,8 @@ class ScopeFunction(Method):
         self.comp_value = comp_value
         self.options = options
 
-class  ScopeTarget(Method):
+class ScopeTarget(Method):
+    """Scopes calls to an address, limited to specific function signatures, and per function scoping rules."""
     name = "scopeTarget"
     in_signature = [("role", "uint16"), ("target_address", "address")]
 
@@ -38,16 +51,13 @@ class  ScopeTarget(Method):
         self.role = role
         self.target_address = target_address
 
-class ScopeRevokeFunction(Method):
-    """what does it do :P"""
-    name = "scopeAllowFunction"
-    in_signature = [("role", "uint16"), ("target_address", "address"), 
-                    ("function_sig", "bytes4"), ("options", "uint8")]
+class AllowTarget(Method):
+    """Allows all calls made to an address."""
+    name = "allowTarget"
+    in_signature = [("role", "uint16"), ("target_address", "address"), ("options", "uint8")]
 
-    def __init__(self, role: int, target_address: str, function_sig: str, options: int):
+    def __init__(self, role: int, target_address: str, options: int):
         self.role = role
         self.target_address = target_address
-        self.function_sig = function_sig
         self.options = options
-
 
